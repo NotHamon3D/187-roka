@@ -1,0 +1,51 @@
+                                                                           
+--by 187:roka
+--https://www.youtube.com/channel/UCYQRKlD3j93_frYhtA4HzGA
+
+--
+--                                                                           
+--
+-- 
+--
+-- 
+--
+--
+--
+--
+--  
+--                                                                           
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+
+local Window = Library.CreateLib("Islands", "DarkTheme")
+local AutoFarmTab = Window:NewTab("Autofarm")
+local AutofarmSection = AutoFarmTab:NewSection("Autofarm")
+local Ores = {"Iron","Electrite","Stone","Coal","Gold","Diamond","Prismarine","Clay","Sandstone","SandstoneRed","Slate","Marble","Andesite","Diorite"
+    
+}
+local Ore = nil
+
+AutofarmSection:NewDropdown("Choose Ore", "Choose Ore To Farm", Ores, function(currentOption)
+    Ore = currentOption
+end)
+
+AutofarmSection:NewToggle("Autofarm", "Farms Ores", function(state)
+getgenv().autofarm = state
+while true do
+if not getgenv().autofarm then return end
+local rock = game:GetService("Workspace").WildernessBlocks:FindFirstChild("rock"..Ore)
+if rock ~= nil then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rock.CFrame + Vector3.new(0,3,0)
+local A_1 = 
+{
+	["player_tracking_category"] = "join_from_web",
+	["part"] = rock["1"],
+	["block"] = rock,
+	["norm"] = Vector3.new(0,0,0),
+	["pos"] = rock.Position
+}
+local Event = game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"].net.out["_NetManaged"]["CLIENT_BLOCK_HIT_REQUEST"]
+Event:InvokeServer(A_1)
+end	
+wait()
+end    
+end)
